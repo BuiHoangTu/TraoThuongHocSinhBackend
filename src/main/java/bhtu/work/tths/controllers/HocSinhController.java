@@ -21,7 +21,17 @@ public class HocSinhController {
 
 
     @GetMapping("phanthuong")
-    public int getPhanThuongDaTrao(@RequestParam(name = "tieuchi", defaultValue = "SoVo") String tieuchi) {
-        return hocSinhService.getPhanThuong(tieuchi);
+    public String getPhanThuongDaTrao(@RequestParam(name = "tieuChiStr", defaultValue = "SoVo") String tieuChiStr) {
+        tieuChiStr.toLowerCase();
+        HocSinhService.TieuChi tieuChi;
+        switch (tieuChiStr) {
+            case "sovo" -> tieuChi = HocSinhService.TieuChi.SoVo;
+            case "giatri" -> tieuChi = HocSinhService.TieuChi.GiaTri;
+            default -> {
+                return null;
+                // Todo: redirect to /error page
+            }
+        }
+        return String.valueOf(hocSinhService.getPhanThuongDaTrao(tieuChi));
     }
 }
