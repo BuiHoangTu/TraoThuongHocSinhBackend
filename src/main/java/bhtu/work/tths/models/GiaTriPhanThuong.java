@@ -6,23 +6,26 @@ import java.util.List;
 
 public class GiaTriPhanThuong {
     public class LoaiPhanThuong {
-        private String danhHieu;
-        private int giaTien;
+        /**
+         * Phan thuong: keo(cai), banh(goi)
+         */
+        private String loaiPhanThuong;
+        private int donGia;
 
-        public String getDanhHieu() {
-            return danhHieu;
+        public String getLoaiPhanThuong() {
+            return loaiPhanThuong;
         }
 
-        public void setDanhHieu(String loaiPhanThuong) {
-            this.danhHieu = loaiPhanThuong;
+        public void setLoaiPhanThuong(String loaiPhanThuong) {
+            this.loaiPhanThuong = loaiPhanThuong;
         }
 
-        public int getGiaTien() {
-            return giaTien;
+        public int getDonGia() {
+            return donGia;
         }
 
-        public void setGiaTien(int giaTien) {
-            this.giaTien = giaTien;
+        public void setDonGia(int giaTien) {
+            this.donGia = giaTien;
         }
 
     }

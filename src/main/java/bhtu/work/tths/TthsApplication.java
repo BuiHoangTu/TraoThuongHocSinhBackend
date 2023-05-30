@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bhtu.work.tths.models.HocSinh;
 import bhtu.work.tths.models.PhanThuong;
-import bhtu.work.tths.repositories.HocSinhRepo;
+import bhtu.work.tths.repositories.mongo.HocSinhRepo;
 
 @SpringBootApplication
 @RestController
@@ -31,8 +31,8 @@ public class TthsApplication {
 	CommandLineRunner runner(HocSinhRepo repo) {
 		return (args) -> {
 			HocSinh h = new HocSinh(null, "Tu", LocalDate.now(), HocSinh.tenCacTruongHoc[2], "16894577", "rs");
-			PhanThuong p = new PhanThuong(LocalDate.now(), "hnay", "live", "15", 1, 0)
-			h.getCacPhanThuong().add(new PhanThuong());
+			PhanThuong p = new PhanThuong();
+			h.getCacPhanThuong().add(p);
 			repo.insert(h);
 		};
 	}
