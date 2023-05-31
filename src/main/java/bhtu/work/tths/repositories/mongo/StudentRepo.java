@@ -12,9 +12,9 @@ public interface StudentRepo extends MongoRepository<Student, String> {
 
     List<Student> findByIdRegex(String id);
 
-    List<Student> findByTenRegex(String name);
+    List<Student> findByNameRegex(String name);
 
-    List<Student> findByPhuHuynhRegex(String parent);
+    List<Student> findByParentRegex(String parent);
 
-    List<Student> findByTruongHocRegex(String string);
+    List<Student> findBySchoolRegex(String string);
 }

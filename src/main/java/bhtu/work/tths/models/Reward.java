@@ -3,87 +3,87 @@ package bhtu.work.tths.models;
 import java.time.LocalDate;
 
 public class Reward {
-    private LocalDate ngayPhatThuong;
-    private String tenDotPhatThuong;
-    private String danhHieu;
-    private String lop;
+    private LocalDate dateOfEvent;
+    private String nameOfEvent;
+    private String achievement;
+    private String classStr;
     /**
      * keo(cai), banh(goi)
      */
-    private String loaiQua;
-    private int soLuong;
-    private int tongGiaTri;
+    private String prize;
+    private int amount;
+    private int totalExpense;
 
     
 
-    public Reward(LocalDate ngayPhatThuong, String tenDotPhatThuong, String danhHieu, String lop, String loaiQua,
-            int soLuong, int tongGiaTri) {
-        this.ngayPhatThuong = ngayPhatThuong;
-        this.tenDotPhatThuong = tenDotPhatThuong;
-        this.danhHieu = danhHieu;
-        this.lop = lop;
-        this.loaiQua = loaiQua;
-        this.soLuong = soLuong;
-        this.tongGiaTri = tongGiaTri;
+    public Reward(LocalDate dateOfEvent, String nameOfEvent, String achievement, String classStr, String typeOfReward,
+            int amount, int totalExpense) {
+        this.dateOfEvent = dateOfEvent;
+        this.nameOfEvent = nameOfEvent;
+        this.achievement = achievement;
+        this.classStr = classStr;
+        this.prize = typeOfReward;
+        this.amount = amount;
+        this.totalExpense = totalExpense;
     }
 
     public Reward() {
     }
 
-    public LocalDate getNgayPhatThuong() {
-        return ngayPhatThuong;
+    public LocalDate getDateOfEvent() {
+        return dateOfEvent;
     }
 
-    public void setNgayPhatThuong(LocalDate ngayPhatThuong) {
-        this.ngayPhatThuong = ngayPhatThuong;
+    public void setDateOfEvent(LocalDate dateOfEvent) {
+        this.dateOfEvent = dateOfEvent;
     }
 
-    public String getTenDotPhatThuong() {
-        return tenDotPhatThuong;
+    public String getNameOfEvent() {
+        return nameOfEvent;
     }
 
-    public void setTenDotPhatThuong(String tenDotPhatThuong) {
-        this.tenDotPhatThuong = tenDotPhatThuong;
+    public void setNameOfEvent(String nameOfEvent) {
+        this.nameOfEvent = nameOfEvent;
     }
 
-    public String getDanhHieu() {
-        return danhHieu;
+    public String getAchievement() {
+        return achievement;
     }
 
-    public void setDanhHieu(String danhHieu) {
-        this.danhHieu = danhHieu;
+    public void setAchievement(String achievement) {
+        this.achievement = achievement;
     }
 
-    public String getLop() {
-        return lop;
+    public String getClassStr() {
+        return classStr;
     }
 
-    public void setLop(String lop) {
-        this.lop = lop;
+    public void setClassStr(String classStr) {
+        this.classStr = classStr;
     }
 
-    public int getSoLuong() {
-        return soLuong;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setSoLuong(int soLuongPhanQua) {
-        this.soLuong = soLuongPhanQua;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    public int getTongGiaTri() {
-        return tongGiaTri;
+    public int getTotalExpense() {
+        return totalExpense;
     }
 
-    public void setTongGiaTri(int giaTri) {
-        this.tongGiaTri = giaTri;
+    public void setTotalExpense(int totalExpense) {
+        this.totalExpense = totalExpense;
     }
 
-    public String getLoaiQua() {
-        return loaiQua;
+    public String getPrize() {
+        return prize;
     }
 
-    public void setLoaiQua(String loaiQua) {
-        this.loaiQua = loaiQua;
+    public void setPrize(String prize) {
+        this.prize = prize;
     }
 
 }

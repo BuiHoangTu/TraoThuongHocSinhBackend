@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-// @EnableMongoRepositories(basePackageClasses = HocSinhRepo.class)
 public class StudentAwardApplication {
 
 	public static void main(String[] args) {

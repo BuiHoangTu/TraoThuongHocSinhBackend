@@ -23,9 +23,9 @@ public class StudentService {
         
         switch (category) {
             case ID -> {return this.studentRepo.findByIdRegex(filter + ".*");}
-            case NAME -> {return this.studentRepo.findByTenRegex(".*" + filter + ".*");}
-            case SCHOOL -> {return this.studentRepo.findByTruongHocRegex(".*" + filter + ".*");}
-            case PARENT -> {return this.studentRepo.findByPhuHuynhRegex(".*" + filter + ".*");}
+            case NAME -> {return this.studentRepo.findByNameRegex(".*" + filter + ".*");}
+            case SCHOOL -> {return this.studentRepo.findBySchoolRegex(".*" + filter + ".*");}
+            case PARENT -> {return this.studentRepo.findByParentRegex(".*" + filter + ".*");}
             default -> {return null;}
         }
         

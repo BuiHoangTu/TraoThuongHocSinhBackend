@@ -21,11 +21,11 @@ public class Student {
 	private String parent;
 	private List<Reward> rewards = new ArrayList<>();
 
-	public Student(String id, String name, LocalDate dateOfBirth, String School, String householdNumber, String parent) {
+	public Student(String id, String name, LocalDate dateOfBirth, String school, String householdNumber, String parent) {
 		this.id = id;
 		this.name = name;
 		this.dateOfBirth = dateOfBirth;
-		this.school = School;
+		this.school = school;
 		this.householdNumber = householdNumber;
 		this.parent = parent;
 	}

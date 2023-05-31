@@ -1,35 +1,43 @@
 package bhtu.work.tths.configs.mongo;
 
+import java.time.LocalDate;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import bhtu.work.tths.models.Reward;
+import bhtu.work.tths.models.Student;
+import bhtu.work.tths.repositories.mongo.StudentRepo;
 
 @Configuration
 public class StudentConfig {
     
-    // @Bean
-	// CommandLineRunner runner(HocSinhRepo repo) {
-	// 	return (args) -> {
-	// 		HocSinh h = new HocSinh("2", "Tu2", LocalDate.now(), HocSinh.tenCacTruongHoc[2], "16894577", "rs");
+    @Bean
+	CommandLineRunner runner(StudentRepo repo) {
+		return (args) -> {
+			Student h = new Student(null, "Tu2", LocalDate.now(), Student.localSchool[2], "16894577", "rs");
 
-	// 		PhanThuong p = new PhanThuong();
-    //         p.setDanhHieu("gioi");
-    //         p.setLop("15");
-    //         p.setNgayPhatThuong(LocalDate.of(1935,12,1));
-    //         p.setSoLuong(10);
-	// 		p.setTenDotPhatThuong("Trung Thu");
-	// 		p.setTongGiaTri(100_000);
-	// 		p.setLoaiQua("vo (quyen)");
-	// 		h.getCacPhanThuong().add(p);
+			Reward p = new Reward();
+            p.setAchievement("gioi");
+            p.setClassStr("15");
+            p.setDateOfEvent(LocalDate.of(1935,12,1));
+            p.setAmount(10);
+			p.setNameOfEvent("Trung Thu");
+			p.setTotalExpense(100_000);
+			p.setPrize("vo (quyen)");
+			h.getRewards().add(p);
 			
-	// 		p = new PhanThuong();
-    //         p.setDanhHieu("kha");
-    //         p.setLop("15");
-    //         p.setNgayPhatThuong(LocalDate.of(1935,12,1));
-    //         p.setSoLuong(10);
-	// 		p.setTenDotPhatThuong("Trung Thu");
-	// 		p.setTongGiaTri(100_000);
-	// 		p.setLoaiQua("vo (quyen)");
-	// 		h.getCacPhanThuong().add(p);
-	// 		repo.insert(h);
-	// 	};
-	// }
+			p = new Reward();
+            p.setAchievement("kha");
+            p.setClassStr("15");
+            p.setDateOfEvent(LocalDate.of(1935,12,1));
+            p.setAmount(10);
+			p.setNameOfEvent("Trung Thu");
+			p.setTotalExpense(100_000);
+			p.setPrize("vo (quyen)");
+			h.getRewards().add(p);
+			repo.save(h);
+		};
+	}
 }
