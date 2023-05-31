@@ -2,9 +2,11 @@ package bhtu.work.tths.services;
 
 import bhtu.work.tths.models.HocSinh;
 import bhtu.work.tths.models.PhanThuong;
-import bhtu.work.tths.records.PhanThuongDot;
-import bhtu.work.tths.records.PhanThuongHK;
+import bhtu.work.tths.models.dto.PhanThuongDot;
+import bhtu.work.tths.models.dto.PhanThuongHK;
 import bhtu.work.tths.repositories.mongo.HocSinhRepo;
+import bhtu.work.tths.models.enums.EGetStudents;
+import bhtu.work.tths.models.enums.EStatisticCriteria;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -15,17 +17,24 @@ import java.util.UUID;
 
 @Service
 public class HocSinhService {
-    public enum TieuChi {
-        SoVo,
-        GiaTri
-    }
-
     @Autowired
     private HocSinhRepo hocSinhRepo;
 
+    public List<HocSinh> findHocSinh(EGetStudents category, String filter) {
+        
+        switch (category) {
+            case ID -> {return this.hocSinhRepo.findByIdRegex(filter + ".*");}
+            case NAME -> {return this.hocSinhRepo.findByTenRegex(".*" + filter + ".*");}
+            case SCHOOL -> {return this.hocSinhRepo.findByTruongHocRegex(".*" + filter + ".*");}
+            case PARENT -> {return this.hocSinhRepo.findByPhuHuynhRegex(".*" + filter + ".*");}
+            default -> {return null;}
+        }
+        
+        
+    }
+
     public HocSinh addHocSinh(HocSinh hocSinh) {
-        hocSinh.setId(UUID.randomUUID().toString().split("-")[0]);
-        return hocSinhRepo.save(hocSinh);
+        return hocSinhRepo.insert(hocSinh);
     }
 
     public HocSinh getHocSinhById(@NonNull String Id) {
@@ -35,7 +44,7 @@ public class HocSinhService {
     public List<HocSinh> getHocSinhByTen(@NonNull String ten) {
         return hocSinhRepo.findByTen(ten);
     }
-    
+
     public HocSinh updateHocSinh(HocSinh hocSinh) {
         HocSinh onDbHocSinh = hocSinhRepo.findById(hocSinh.getId()).get();
         onDbHocSinh.setMaHoKhau(hocSinh.getMaHoKhau());
@@ -43,12 +52,12 @@ public class HocSinhService {
         onDbHocSinh.setPhuHuynh(hocSinh.getPhuHuynh());
         onDbHocSinh.setTen(hocSinh.getTen());
         onDbHocSinh.setTruongHoc(hocSinh.getTruongHoc());
-        return hocSinhRepo.save(onDbHocSinh); 
+        return hocSinhRepo.save(onDbHocSinh);
     }
 
-    //------------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------------------------------
 
-    public int getPhanThuongDaTrao(TieuChi loaiMa) {
+    public int getPhanThuongDaTrao(EStatisticCriteria loaiMa) {
         return 0;
     }
     // public boolean themPhanThuong(String ten, String maHK, String danhHieu)
@@ -65,15 +74,15 @@ public class HocSinhService {
         return 0;
     }
 
-    public List<PhanThuongHK> getPTHK(String filter)  {
+    public List<PhanThuongHK> getPTHK(String filter) {
         return null;
     }
 
-    public List<PhanThuongDot> getPTDot(String filter)  {
+    public List<PhanThuongDot> getPTDot(String filter) {
         return null;
     }
 
-    public List<PhanThuong> getThuong(String maHS)  {
+    public List<PhanThuong> getThuong(String maHS) {
         return null;
     }
 
