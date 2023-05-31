@@ -31,7 +31,7 @@ public class StudentConfig {
 			p = new Reward();
             p.setAchievement("kha");
             p.setClassStr("15");
-            p.setDateOfEvent(LocalDate.of(1935,12,1));
+            p.setDateOfEvent(LocalDate.of(1935,12,5));
             p.setAmount(10);
 			p.setNameOfEvent("Trung Thu");
 			p.setTotalExpense(100_000);

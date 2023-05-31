@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import bhtu.work.tths.models.Reward;
 import bhtu.work.tths.models.Student;
+import bhtu.work.tths.models.dto.StudentOneReward;
 import bhtu.work.tths.models.enums.EGetStudents;
 import bhtu.work.tths.services.StudentService;
 
@@ -25,6 +28,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    // #region mapping
     @GetMapping("get")
     public Student getStudent(@RequestParam(name = "id", required = true) @NonNull String id) {
         return studentService.getStudentById(id);
@@ -40,7 +44,21 @@ public class StudentController {
     }
 
     @PostMapping("add")
-    public void addStudent(@RequestBody Student idlessHocSinh) {
+    public boolean addStudent(@RequestBody Student idlessHocSinh) {
         studentService.addStudent(idlessHocSinh);
+        return true;
     }
+
+    @PutMapping("change")
+    public boolean changeStudent(@RequestBody StudentOneReward changedStudent) {
+        Reward rewardToChange = changedStudent.lastestReward();
+        Student studentToChange = new Student(changedStudent.id(), changedStudent.name(), changedStudent.dateOfBirth(),
+                changedStudent.school(), changedStudent.householdNumber(), changedStudent.parent());
+        
+        studentService.changeStudent(studentToChange, rewardToChange);
+        
+        return true;
+    }
+
+    // #endregion
 }

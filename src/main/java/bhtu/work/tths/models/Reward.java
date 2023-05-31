@@ -2,7 +2,10 @@ package bhtu.work.tths.models;
 
 import java.time.LocalDate;
 
+import org.springframework.data.annotation.Id;
+
 public class Reward {
+    @Id
     private LocalDate dateOfEvent;
     private String nameOfEvent;
     private String achievement;

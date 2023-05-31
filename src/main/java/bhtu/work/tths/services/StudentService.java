@@ -40,14 +40,21 @@ public class StudentService {
         return studentRepo.findById(Id).get();
     }
 
-    public Student updateStudent(Student hocSinh) {
-        Student onDbStudent = studentRepo.findById(hocSinh.getId()).get();
-        onDbStudent.setHouseholdNumber(hocSinh.getHouseholdNumber());
-        onDbStudent.setDateOfBirth(hocSinh.getDateOfBirth());
-        onDbStudent.setParent(hocSinh.getParent());
-        onDbStudent.setName(hocSinh.getName());
-        onDbStudent.setSchool(hocSinh.getSchool());
-        return studentRepo.save(onDbStudent);
+    public void changeStudent(Student studentToChange, Reward rewardToChange) {
+        Student onDbStudent = studentRepo.findById(studentToChange.getId()).get();
+        onDbStudent.setHouseholdNumber(studentToChange.getHouseholdNumber());
+        onDbStudent.setDateOfBirth(studentToChange.getDateOfBirth());
+        onDbStudent.setParent(studentToChange.getParent());
+        onDbStudent.setName(studentToChange.getName());
+        onDbStudent.setSchool(studentToChange.getSchool());
+        
+        var rewardOrNot = onDbStudent.getRewards().stream().filter((reward1) -> reward1.getDateOfEvent().equals(rewardToChange.getDateOfEvent())).findFirst();
+        if (rewardOrNot.isPresent()) {
+            onDbStudent.getRewards().remove(rewardOrNot.get());
+        }
+        onDbStudent.getRewards().add(rewardToChange);
+
+        studentRepo.save(onDbStudent);    
     }
 
     // ------------------------------------------------------------------------------------------------------------------------------

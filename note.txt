@@ -2,3 +2,5 @@
     Make connection to mongodb cloud
 31/05: 
     get and find students with criteria 
+    add students 
+    change students 
