@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 // @EnableMongoRepositories(basePackageClasses = HocSinhRepo.class)
-public class TthsApplication {
+public class StudentAwardApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TthsApplication.class, args);
+		SpringApplication.run(StudentAwardApplication.class, args);
 	}
 
 

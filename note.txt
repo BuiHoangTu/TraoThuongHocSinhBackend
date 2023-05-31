@@ -1,0 +1,4 @@
+30/05: 
+    Make connection to mongodb cloud
+31/05: 
+    get and find students with criteria 

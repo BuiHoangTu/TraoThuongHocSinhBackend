@@ -2,7 +2,7 @@ package bhtu.work.tths.models;
 
 import java.time.LocalDate;
 
-public class PhanThuong {
+public class Reward {
     private LocalDate ngayPhatThuong;
     private String tenDotPhatThuong;
     private String danhHieu;
@@ -16,7 +16,7 @@ public class PhanThuong {
 
     
 
-    public PhanThuong(LocalDate ngayPhatThuong, String tenDotPhatThuong, String danhHieu, String lop, String loaiQua,
+    public Reward(LocalDate ngayPhatThuong, String tenDotPhatThuong, String danhHieu, String lop, String loaiQua,
             int soLuong, int tongGiaTri) {
         this.ngayPhatThuong = ngayPhatThuong;
         this.tenDotPhatThuong = tenDotPhatThuong;
@@ -27,7 +27,7 @@ public class PhanThuong {
         this.tongGiaTri = tongGiaTri;
     }
 
-    public PhanThuong() {
+    public Reward() {
     }
 
     public LocalDate getNgayPhatThuong() {
