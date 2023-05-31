@@ -19,7 +19,7 @@ public class HocSinh {
 	private String truongHoc;
 	private String maHoKhau;
 	private String phuHuynh;
-	private final List<PhanThuong> cacPhanThuong = new ArrayList<>();
+	private List<PhanThuong> cacPhanThuong = new ArrayList<>();
 
 	public HocSinh(String id, String ten, LocalDate ngaySinh, String truongHoc, String maHoKhau, String phuHuynh) {
 		this.id = id;
@@ -80,6 +80,10 @@ public class HocSinh {
 
     public List<PhanThuong> getCacPhanThuong() {
         return cacPhanThuong;
+    }
+
+    public void setCacPhanThuong(List<PhanThuong> cacPhanThuong) {
+        this.cacPhanThuong = cacPhanThuong;
     }
 
 	
