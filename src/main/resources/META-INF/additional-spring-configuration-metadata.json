@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "spring.testdata.student.householdnumber",
+  "type": "java.lang.String",
+  "description": "Test student in bhtu.work.tths.configs.mongo.StudentConfig"
+}]}

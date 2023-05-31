@@ -1,7 +1,7 @@
 package bhtu.work.tths.services;
 
 import bhtu.work.tths.models.Student;
-import bhtu.work.tths.models.Reward;
+import bhtu.work.tths.models.EventOfStudent;
 import bhtu.work.tths.models.dto.RewardByEvent;
 import bhtu.work.tths.models.dto.RewardByHouseholdNumber;
 import bhtu.work.tths.repositories.mongo.StudentRepo;
@@ -40,7 +40,7 @@ public class StudentService {
         return studentRepo.findById(Id).get();
     }
 
-    public void changeStudent(Student studentToChange, Reward rewardToChange) {
+    public void changeStudent(Student studentToChange, EventOfStudent rewardToChange) {
         Student onDbStudent = studentRepo.findById(studentToChange.getId()).get();
         onDbStudent.setHouseholdNumber(studentToChange.getHouseholdNumber());
         onDbStudent.setDateOfBirth(studentToChange.getDateOfBirth());
@@ -48,11 +48,11 @@ public class StudentService {
         onDbStudent.setName(studentToChange.getName());
         onDbStudent.setSchool(studentToChange.getSchool());
         
-        var rewardOrNot = onDbStudent.getRewards().stream().filter((reward1) -> reward1.getDateOfEvent().equals(rewardToChange.getDateOfEvent())).findFirst();
+        var rewardOrNot = onDbStudent.getEvents().stream().filter((reward1) -> reward1.getDateOfEvent().equals(rewardToChange.getDateOfEvent())).findFirst();
         if (rewardOrNot.isPresent()) {
-            onDbStudent.getRewards().remove(rewardOrNot.get());
+            onDbStudent.getEvents().remove(rewardOrNot.get());
         }
-        onDbStudent.getRewards().add(rewardToChange);
+        onDbStudent.getEvents().add(rewardToChange);
 
         studentRepo.save(onDbStudent);    
     }
@@ -84,7 +84,7 @@ public class StudentService {
         return null;
     }
 
-    public List<Reward> getThuong(String maHS) {
+    public List<EventOfStudent> getThuong(String maHS) {
         return null;
     }
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import bhtu.work.tths.models.Reward;
+import bhtu.work.tths.models.EventOfStudent;
 import bhtu.work.tths.models.Student;
 import bhtu.work.tths.models.dto.StudentOneReward;
 import bhtu.work.tths.models.enums.EGetStudents;
@@ -51,7 +51,7 @@ public class StudentController {
 
     @PutMapping("change")
     public boolean changeStudent(@RequestBody StudentOneReward changedStudent) {
-        Reward rewardToChange = changedStudent.lastestReward();
+        EventOfStudent rewardToChange = changedStudent.lastestReward();
         Student studentToChange = new Student(changedStudent.id(), changedStudent.name(), changedStudent.dateOfBirth(),
                 changedStudent.school(), changedStudent.householdNumber(), changedStudent.parent());
         

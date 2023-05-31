@@ -3,3 +3,7 @@ spring:
     mongodb:
       uri: mongodb+srv://java:java@tths.np7ff7c.mongodb.net/?retryWrites=true&w=majority
       database: StudentReward
+
+  testdata:
+    student:
+      householdnumber: 16894576

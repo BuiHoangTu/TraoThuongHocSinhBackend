@@ -2,7 +2,7 @@ package bhtu.work.tths.models.dto;
 
 import java.time.LocalDate;
 
-import bhtu.work.tths.models.Reward;
+import bhtu.work.tths.models.EventOfStudent;
 
 public record StudentOneReward(
         String id,
@@ -11,6 +11,6 @@ public record StudentOneReward(
         String school,
         String householdNumber,
         String parent,
-        Reward lastestReward) {
+        EventOfStudent lastestReward) {
 
 }
