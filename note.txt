@@ -4,3 +4,7 @@
     get and find students with criteria 
     add students 
     change students 
+
+01/06
+    use @Aggregation to customize query 
+    get AwardPeriod (smaller than or equal) today 

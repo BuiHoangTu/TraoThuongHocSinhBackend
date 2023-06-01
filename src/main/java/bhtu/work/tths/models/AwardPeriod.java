@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class AwardLevelPeriod {
+public class AwardPeriod {
     @Id
     private LocalDate dateOfApply;
     private List<AwardLevel> awardLevels = new ArrayList<>();

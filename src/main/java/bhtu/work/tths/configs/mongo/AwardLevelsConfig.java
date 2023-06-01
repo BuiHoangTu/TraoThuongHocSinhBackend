@@ -7,20 +7,34 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import bhtu.work.tths.models.AwardLevel;
-import bhtu.work.tths.models.AwardLevelPeriod;
-import bhtu.work.tths.repositories.mongo.AwardLevelsRepo;
+import bhtu.work.tths.models.AwardPeriod;
+import bhtu.work.tths.repositories.mongo.AwardPeriodRepo;
 
 @Configuration
 public class AwardLevelsConfig {
     
     @Bean
-    CommandLineRunner ALCrunner(AwardLevelsRepo repo) {
+    CommandLineRunner ALCrunner(AwardPeriodRepo repo) {
         return ((_args) -> {
-            AwardLevelPeriod awardLevels = new AwardLevelPeriod();
-            awardLevels.setDateOfApply(LocalDate.of(1990, 12, 8));
+            AwardPeriod awardPeriod = new AwardPeriod();
+            awardPeriod.setDateOfApply(LocalDate.of(1990, 12, 8));
         
             AwardLevel awardLevel = new AwardLevel();
-            awardLevel.setAchievement(null);
+            awardLevel.setAchievement("gioi");
+            awardLevel.setPrizeValue(100_000);
+            awardPeriod.getAwardLevels().add(awardLevel);
+
+            awardLevel = new AwardLevel();
+            awardLevel.setAchievement("kha");
+            awardLevel.setPrizeValue(50_000);
+            awardPeriod.getAwardLevels().add(awardLevel);
+
+            awardLevel = new AwardLevel();
+            awardLevel.setAchievement("trung binh");
+            awardLevel.setPrizeValue(100_000);
+            awardPeriod.getAwardLevels().add(awardLevel);
+
+            repo.insert(awardPeriod);
         });
     }
 }

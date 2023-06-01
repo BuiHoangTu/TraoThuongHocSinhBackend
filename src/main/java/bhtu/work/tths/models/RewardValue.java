@@ -5,23 +5,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RewardValue {
-    private LocalDate dateOfIndication;
+    private LocalDate dateOfApply;
     private List<PrizeType> rewardTypes = new ArrayList<>();
 
-    public LocalDate getDateOfIndication() {
-        return dateOfIndication;
+    public LocalDate getDateOfApply() {
+        return dateOfApply;
     }
 
-    public void setDateOfIndication(LocalDate ngayTao) {
-        this.dateOfIndication = ngayTao;
+    public void setDateOfApply(LocalDate dateOfApply) {
+        this.dateOfApply = dateOfApply;
     }
 
     public List<PrizeType> getRewardTypes() {
         return rewardTypes;
     }
 
-    public void setRewardTypes(List<PrizeType> cacGiaiThuong) {
-        this.rewardTypes = cacGiaiThuong;
+    public void setRewardTypes(List<PrizeType> rewardTypes) {
+        this.rewardTypes = rewardTypes;
     }
 
 }

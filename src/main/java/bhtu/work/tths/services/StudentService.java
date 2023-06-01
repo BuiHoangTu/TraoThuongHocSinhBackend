@@ -17,8 +17,12 @@ import java.util.List;
 
 @Service
 public class StudentService {
+    private final StudentRepo studentRepo;
+
     @Autowired
-    private StudentRepo studentRepo;
+    public StudentService(StudentRepo studentRepo) {
+        this.studentRepo = studentRepo;
+    }
 
     public List<Student> findStudent(String categoryStr, String filter) {
 
