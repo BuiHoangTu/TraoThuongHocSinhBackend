@@ -4,6 +4,7 @@ import bhtu.work.tths.models.Student;
 import bhtu.work.tths.models.EventOfStudent;
 import bhtu.work.tths.models.dto.RewardByEvent;
 import bhtu.work.tths.models.dto.RewardByHouseholdNumber;
+import bhtu.work.tths.models.dto.StudentOneReward;
 import bhtu.work.tths.repositories.mongo.StudentRepo;
 import bhtu.work.tths.models.enums.EGetStudents;
 import bhtu.work.tths.models.enums.EStatisticCriteria;
@@ -19,17 +20,28 @@ public class StudentService {
     @Autowired
     private StudentRepo studentRepo;
 
-    public List<Student> findStudent(EGetStudents category, String filter) {
-        
+    public List<Student> findStudent(String categoryStr, String filter) {
+
+        EGetStudents category = EGetStudents.valueOf(categoryStr.toUpperCase());
+
         switch (category) {
-            case ID -> {return this.studentRepo.findByIdRegex(filter + ".*");}
-            case NAME -> {return this.studentRepo.findByNameRegex(".*" + filter + ".*");}
-            case SCHOOL -> {return this.studentRepo.findBySchoolRegex(".*" + filter + ".*");}
-            case PARENT -> {return this.studentRepo.findByParentRegex(".*" + filter + ".*");}
-            default -> {return null;}
+            case ID -> {
+                return this.studentRepo.findByIdRegex(filter + ".*");
+            }
+            case NAME -> {
+                return this.studentRepo.findByNameRegex(".*" + filter + ".*");
+            }
+            case SCHOOL -> {
+                return this.studentRepo.findBySchoolRegex(".*" + filter + ".*");
+            }
+            case PARENT -> {
+                return this.studentRepo.findByParentRegex(".*" + filter + ".*");
+            }
+            default -> {
+                return null;
+            }
         }
-        
-        
+
     }
 
     public Student addStudent(Student student) {
@@ -40,21 +52,26 @@ public class StudentService {
         return studentRepo.findById(Id).get();
     }
 
-    public void changeStudent(Student studentToChange, EventOfStudent rewardToChange) {
+    public Student changeStudent(StudentOneReward changedStudent) {
+        EventOfStudent rewardToChange = changedStudent.lastestReward();
+        Student studentToChange = new Student(changedStudent.id(), changedStudent.name(), changedStudent.dateOfBirth(),
+                changedStudent.school(), changedStudent.householdNumber(), changedStudent.parent());
+
         Student onDbStudent = studentRepo.findById(studentToChange.getId()).get();
         onDbStudent.setHouseholdNumber(studentToChange.getHouseholdNumber());
         onDbStudent.setDateOfBirth(studentToChange.getDateOfBirth());
         onDbStudent.setParent(studentToChange.getParent());
         onDbStudent.setName(studentToChange.getName());
         onDbStudent.setSchool(studentToChange.getSchool());
-        
-        var rewardOrNot = onDbStudent.getEvents().stream().filter((reward1) -> reward1.getDateOfEvent().equals(rewardToChange.getDateOfEvent())).findFirst();
+
+        var rewardOrNot = onDbStudent.getEvents().stream()
+                .filter((reward1) -> reward1.getDateOfEvent().equals(rewardToChange.getDateOfEvent())).findFirst();
         if (rewardOrNot.isPresent()) {
             onDbStudent.getEvents().remove(rewardOrNot.get());
         }
         onDbStudent.getEvents().add(rewardToChange);
 
-        studentRepo.save(onDbStudent);    
+        return studentRepo.save(onDbStudent);
     }
 
     // ------------------------------------------------------------------------------------------------------------------------------
