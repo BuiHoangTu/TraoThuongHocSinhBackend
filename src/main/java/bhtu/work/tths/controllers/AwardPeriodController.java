@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import bhtu.work.tths.models.AwardPeriod;
-import bhtu.work.tths.services.grpcClientService.AwardPeriodService;
+import bhtu.work.tths.services.AwardPeriodService;
 
 @RestController
 @RequestMapping("awardperiod")

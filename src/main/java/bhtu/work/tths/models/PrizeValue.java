@@ -1,6 +1,9 @@
 package bhtu.work.tths.models;
 
-public class PrizeType {
+/**
+ * price of a type of prize
+ */
+public class PrizeValue {
     /**
      * Phan thuong: keo(cai), banh(goi)
      */

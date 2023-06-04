@@ -6,19 +6,19 @@ import java.time.format.DateTimeParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import bhtu.work.tths.models.AwardPeriod;
-import bhtu.work.tths.repositories.mongo.AwardPeriodRepo;
+import bhtu.work.tths.models.PrizePeriod;
+import bhtu.work.tths.repositories.mongo.PrizePeriodRepo;
 
 @Service
-public class AwardPeriodService {
-    private final AwardPeriodRepo awardPeriodRepo;
-
-    @Autowired
-    public AwardPeriodService(AwardPeriodRepo awardPeriodRepo) {
-        this.awardPeriodRepo = awardPeriodRepo;
-    }
+public class PrizePeriodService {
+    private final PrizePeriodRepo periodRepo;
     
-    public AwardPeriod getAwardPeriod(String dateString) {
+    @Autowired
+    public PrizePeriodService(PrizePeriodRepo periodRepo) {
+        this.periodRepo = periodRepo;
+    }
+
+    public PrizePeriod getAwardPeriod(String dateString) {
         LocalDate dateOfApply;
         if (dateString != null) {
             try {
@@ -29,11 +29,12 @@ public class AwardPeriodService {
         } else {
             dateOfApply = LocalDate.now();
         }
-        return this.awardPeriodRepo.findByDateOfApply(dateOfApply);
+        return this.periodRepo.findByDateOfApply(dateOfApply);
     }
 
-    public AwardPeriod changeAwardLevel(AwardPeriod awardPeriod) {
-        return this.awardPeriodRepo.save(awardPeriod);
+    public PrizePeriod changeAwardLevel(PrizePeriod prizePeriod) {
+        return this.periodRepo.save(prizePeriod);
     }
 
+    
 }

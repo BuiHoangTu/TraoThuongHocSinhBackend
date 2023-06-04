@@ -4,9 +4,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RewardValue {
+/**
+ * How the prizes cost at dateOfApply
+ * @param dateOfApply date when these prizes types cost 
+ */ 
+public class PrizePeriod {
     private LocalDate dateOfApply;
-    private List<PrizeType> rewardTypes = new ArrayList<>();
+    private List<PrizeValue> rewardTypes = new ArrayList<>();
 
     public LocalDate getDateOfApply() {
         return dateOfApply;
@@ -16,11 +20,11 @@ public class RewardValue {
         this.dateOfApply = dateOfApply;
     }
 
-    public List<PrizeType> getRewardTypes() {
+    public List<PrizeValue> getRewardTypes() {
         return rewardTypes;
     }
 
-    public void setRewardTypes(List<PrizeType> rewardTypes) {
+    public void setRewardTypes(List<PrizeValue> rewardTypes) {
         this.rewardTypes = rewardTypes;
     }
 

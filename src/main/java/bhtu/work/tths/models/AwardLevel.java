@@ -1,5 +1,8 @@
 package bhtu.work.tths.models;
 
+/**
+ * Amount of money for each achivement 
+ */
 public class AwardLevel {
     private String achievement;
     private int prizeValue;
