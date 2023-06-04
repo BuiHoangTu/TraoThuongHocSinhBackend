@@ -8,11 +8,11 @@ import lombok.Data;
  * @param amount amount of this price that the student got 
  */ 
 @Data
-public class StudentPrize {
+public class PrizeGroup {
     private String nameOfPrize;
     private int amount;
 
-    public StudentPrize(String nameOfPrize, int amount) {
+    public PrizeGroup(String nameOfPrize, int amount) {
         this.nameOfPrize = nameOfPrize;
         this.amount = amount;
     }

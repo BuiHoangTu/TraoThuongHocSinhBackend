@@ -1,13 +1,14 @@
 package bhtu.work.tths.models.dto;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import bhtu.work.tths.models.PrizeGroup;
 
 public record RewardByEvent(
-        RewardPack allRewards,
-        int totalExpense,
-        LocalDate dateOfEvent,
-        String nameOfEvent
-        ) 
-        {
-                
-        }
+                List<PrizeGroup> allRewards,
+                int totalExpense,
+                LocalDate dateOfEvent,
+                String nameOfEvent) {
+
+}

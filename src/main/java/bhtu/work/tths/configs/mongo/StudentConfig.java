@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import bhtu.work.tths.models.EventOfStudent;
-import bhtu.work.tths.models.StudentPrize;
+import bhtu.work.tths.models.PrizeGroup;
 import bhtu.work.tths.models.Student;
 import bhtu.work.tths.repositories.mongo.StudentRepo;
 
@@ -31,8 +31,8 @@ public class StudentConfig {
             e.setDateOfEvent(LocalDate.of(1935,12,1));
 			e.setNameOfEvent("Trung Thu");
 			e.setTotalExpense(100_000);
-			e.getPrizes().add((new StudentPrize("Banh (cai)", 13)));
-			e.getPrizes().add(new StudentPrize("Keo (goi)", 2));
+			e.getPrizes().add((new PrizeGroup("Banh (cai)", 13)));
+			e.getPrizes().add(new PrizeGroup("Keo (goi)", 2));
 			h.getEvents().add(e);
 			
 			e = new EventOfStudent();
@@ -41,8 +41,8 @@ public class StudentConfig {
             e.setDateOfEvent(LocalDate.of(1935,12,5));
 			e.setNameOfEvent("Trung Thu");
 			e.setTotalExpense(100_000);
-			e.getPrizes().add((new StudentPrize("Banh (cai)", 13)));
-			e.getPrizes().add(new StudentPrize("Keo (goi)", 2));
+			e.getPrizes().add((new PrizeGroup("Banh (cai)", 13)));
+			e.getPrizes().add(new PrizeGroup("Keo (goi)", 2));
 			repo.save(h);
 		};
 	}

@@ -21,11 +21,11 @@ public class EventOfStudent {
     /**
      * keo(cai), banh(goi)
      */
-    private List<StudentPrize> prizes = new ArrayList<>();
+    private List<PrizeGroup> prizes = new ArrayList<>();
     private int totalExpense;
 
     public EventOfStudent(LocalDate dateOfEvent, String nameOfEvent, String achievement, String classStr,
-            List<StudentPrize> prizes, int totalExpense) {
+            List<PrizeGroup> prizes, int totalExpense) {
         this.dateOfEvent = dateOfEvent;
         this.nameOfEvent = nameOfEvent;
         this.achievement = achievement;

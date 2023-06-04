@@ -11,6 +11,6 @@ public record StudentOneReward(
         String school,
         String householdNumber,
         String parent,
-        EventOfStudent lastestReward) {
+        EventOfStudent lastestEvent) {
 
 }

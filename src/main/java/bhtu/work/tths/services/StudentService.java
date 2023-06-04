@@ -57,7 +57,7 @@ public class StudentService {
     }
 
     public Student changeStudent(StudentOneReward changedStudent) {
-        EventOfStudent rewardToChange = changedStudent.lastestReward();
+        EventOfStudent rewardToChange = changedStudent.lastestEvent();
         Student studentToChange = new Student(changedStudent.id(), changedStudent.name(), changedStudent.dateOfBirth(),
                 changedStudent.school(), changedStudent.householdNumber(), changedStudent.parent());
 
