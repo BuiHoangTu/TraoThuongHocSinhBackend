@@ -28,7 +28,7 @@ public class StudentController {
 
     // #region mapping
     @GetMapping("get")
-    public Student getStudent(@RequestParam(name = "id", required = true) @NonNull String id) {
+    public Student getStudent(@RequestParam(name = "id") @NonNull String id) {
         return studentService.getStudentById(id);
     }
 

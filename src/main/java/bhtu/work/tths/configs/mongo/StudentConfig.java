@@ -20,7 +20,7 @@ public class StudentConfig {
     
 	@Bean
 	CommandLineRunner SCrunner(StudentRepo repo) {
-		this.householdNumber = String.valueOf(Integer.valueOf(this.householdNumber) + 1);
+		this.householdNumber = String.valueOf(Integer.parseInt(this.householdNumber) + 1);
 
 		return (args) -> {
 			Student h = new Student(null, "Tu2", LocalDate.now(), Student.localSchool[2], String.valueOf(this.householdNumber), "rs");

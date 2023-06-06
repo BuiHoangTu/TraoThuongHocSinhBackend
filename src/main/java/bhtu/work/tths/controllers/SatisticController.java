@@ -22,12 +22,12 @@ public class SatisticController {
 
     // #region mapping
     @GetMapping("event")
-    public RewardByEvent getRewardByEvent(@RequestParam(name = "filter", required = true) String eventFilter, @RequestParam(name = "filterType", defaultValue = "eventname") String filterType) {
+    public RewardByEvent getRewardByEvent(@RequestParam(name = "filter") String eventFilter, @RequestParam(name = "filterType", defaultValue = "eventname") String filterType) {
         return this.satisticService.getRewardByEvent(eventFilter, filterType);
     }
 
     @GetMapping("householdnumber")
-    public RewardByHouseholdNumber getByHouseholdNumber(@RequestParam(name = "filter", required = true) String householdNumber) {
+    public RewardByHouseholdNumber getByHouseholdNumber(@RequestParam(name = "filter") String householdNumber) {
         return this.satisticService.getByHouseholdNumber(householdNumber);
     }
     //#endregion

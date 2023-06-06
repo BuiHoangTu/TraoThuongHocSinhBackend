@@ -18,14 +18,14 @@ public class MyUserDetails implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    private final String id;
 
-    private String username;
+    private final String username;
 
     @JsonIgnore
-    private String password;
+    private final String password;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     public MyUserDetails(String id, String username, String password,
             Collection<? extends GrantedAuthority> authorities) {
@@ -88,11 +88,9 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || o instanceof UserDetails)
-            return false;
-            UserDetails otherUserDetail = (UserDetails) o;
+        if (this == o) return true;
+        if (!(o instanceof UserDetails otherUserDetail))  return false;
+
         return Objects.equals(this.username, otherUserDetail.getUsername());
     }
 
