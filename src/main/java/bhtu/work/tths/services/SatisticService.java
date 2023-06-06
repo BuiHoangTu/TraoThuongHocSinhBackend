@@ -25,6 +25,7 @@ public class SatisticService {
 
     public RewardByEvent getRewardByEvent(String eventFilter, String filterType) {
         return null;
+        // TODO: implement this and below 
     }
 
     public RewardByHouseholdNumber getByHouseholdNumber(String householdNumber) {
