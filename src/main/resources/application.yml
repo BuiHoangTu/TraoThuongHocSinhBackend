@@ -7,3 +7,8 @@ spring:
   testdata:
     student:
       householdnumber: 16894576
+
+  app:
+    jwtCookieName: tths
+    jwtSecret: tths_private
+    jwtExpirationMs: 86400000

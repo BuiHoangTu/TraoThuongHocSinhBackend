@@ -41,4 +41,9 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     public Collection<String> getMappingBasePackages() {
         return Collections.singleton("bhtu.work.tths");
     }
+
+    @Override
+    protected boolean autoIndexCreation() {
+        return true;
+    }
 }
