@@ -11,7 +11,7 @@ import bhtu.work.tths.models.dto.RewardByHouseholdNumber;
 import bhtu.work.tths.services.SatisticService;
 
 @RestController
-@RequestMapping("satistic")
+@RequestMapping("api/satistic")
 public class SatisticController {
     private final SatisticService satisticService;
 

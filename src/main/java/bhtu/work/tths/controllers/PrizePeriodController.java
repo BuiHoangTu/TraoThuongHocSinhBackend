@@ -12,7 +12,7 @@ import bhtu.work.tths.models.PrizePeriod;
 import bhtu.work.tths.services.PrizePeriodService;
 
 @RestController
-@RequestMapping("prizeperiod")
+@RequestMapping("api/prizeperiod")
 public class PrizePeriodController {
     private final PrizePeriodService prizePeriodService;
 

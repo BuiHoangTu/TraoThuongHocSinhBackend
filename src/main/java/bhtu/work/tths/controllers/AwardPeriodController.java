@@ -12,7 +12,7 @@ import bhtu.work.tths.models.AwardPeriod;
 import bhtu.work.tths.services.AwardPeriodService;
 
 @RestController
-@RequestMapping("awardperiod")
+@RequestMapping("api/awardperiod")
 public class AwardPeriodController {
     private final AwardPeriodService awardPeriodService;
 

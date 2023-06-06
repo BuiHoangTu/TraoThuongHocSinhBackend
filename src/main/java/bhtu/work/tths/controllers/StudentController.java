@@ -17,7 +17,7 @@ import bhtu.work.tths.models.dto.StudentOneReward;
 import bhtu.work.tths.services.StudentService;
 
 @RestController
-@RequestMapping(path = "student")
+@RequestMapping(path = "api/student")
 public class StudentController {
     private final StudentService studentService;
 
