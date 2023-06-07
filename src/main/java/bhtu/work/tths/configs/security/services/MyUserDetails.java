@@ -18,8 +18,6 @@ public class MyUserDetails implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final String id;
-
     private final String username;
 
     @JsonIgnore
@@ -27,33 +25,26 @@ public class MyUserDetails implements UserDetails {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public MyUserDetails(String id, String username, String password,
-            Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
-    }
+//    public MyUserDetails(String username, String password,
+//                         Collection<? extends GrantedAuthority> authorities) {
+//        this.username = username;
+//        this.password = password;
+//        this.authorities = authorities;
+//    }
 
-    public static MyUserDetails build(User user) {
+    public MyUserDetails (User user) {
         List<GrantedAuthority> authorities = user.getAccesses().stream()
                 .map(access -> new SimpleGrantedAuthority(access.getAccess().name()))
                 .collect(Collectors.toList());
 
-        return new MyUserDetails(
-                user.getId(),
-                user.getUsername(),
-                user.getPassword(),
-                authorities);
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.authorities = authorities;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
-
-    public String getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
     @Override
@@ -62,8 +53,8 @@ public class MyUserDetails implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
-        return username;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
     }
 
     @Override
@@ -89,9 +80,9 @@ public class MyUserDetails implements UserDetails {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserDetails otherUserDetail))  return false;
+        if (!(o instanceof UserDetails oAsUserDetail)) return false;
 
-        return Objects.equals(this.username, otherUserDetail.getUsername());
+        return Objects.equals(this.username, oAsUserDetail.getUsername());
     }
 
 }

@@ -16,22 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/auth")
 public class AuthController {
-    private final AuthService authService;
-
-    @Autowired
-    public AuthController(@NonNull AuthService authService) {
-        this.authService = authService;
-    }
-
-    // #region mapping
-    @PostMapping("sign-in")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        return this.authService.authenticateUser(loginRequest);
-    }
-
-    @PostMapping("signup")
-    public ResponseEntity<?> registerParent(@Valid @RequestBody SignupRequest signUpRequest) {
-        return this.authService.registerParent(signUpRequest);
-    }
+//    private final AuthService authService;
+//
+//    @Autowired
+//    public AuthController(@NonNull AuthService authService) {
+//        this.authService = authService;
+//    }
+//
+//    // #region mapping
+//    @PostMapping("sign-in")
+//    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+//        return this.authService.authenticateUser(loginRequest);
+//    }
+//
+//    @PostMapping("signup")
+//    public ResponseEntity<?> registerParent(@Valid @RequestBody SignupRequest signUpRequest) {
+//        return this.authService.registerParent(signUpRequest);
+//    }
     // #endregion
 }

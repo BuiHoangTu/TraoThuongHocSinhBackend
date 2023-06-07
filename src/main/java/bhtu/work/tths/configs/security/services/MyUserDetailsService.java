@@ -23,6 +23,6 @@ public class MyUserDetailsService implements UserDetailsService {
                 .findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
-        return MyUserDetails.build(user);
+        return new MyUserDetails(user);
     }
 }

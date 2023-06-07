@@ -17,7 +17,7 @@ public class AwardLevelsConfig {
     CommandLineRunner ALCrunner(AwardPeriodRepo repo) {
         return ((_args) -> {
             AwardPeriod awardPeriod = new AwardPeriod();
-            awardPeriod.setDateOfApply(LocalDate.of(1990, 12, 8));
+            awardPeriod.setDateOfApply(LocalDate.of(1992, 12, 9));
         
             AwardLevel awardLevel = new AwardLevel();
             awardLevel.setAchievement("gioi");
@@ -34,7 +34,7 @@ public class AwardLevelsConfig {
             awardLevel.setPrizeValue(100_000);
             awardPeriod.getAwardLevels().add(awardLevel);
 
-            repo.insert(awardPeriod);
+            // repo.save(awardPeriod);
         });
     }
 }

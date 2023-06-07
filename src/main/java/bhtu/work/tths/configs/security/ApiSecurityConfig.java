@@ -8,25 +8,28 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@EnableMethodSecurity
+//@Configuration
+//@EnableMethodSecurity
+//@EnableWebSecurity
 public class ApiSecurityConfig {
-    @Bean
+    /*@Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
 
     @Autowired
-    private MyUserDetailsService userDetailsService;
+    private MyUserDetailsService myUserDetailsService;
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
@@ -40,7 +43,7 @@ public class ApiSecurityConfig {
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
-        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setUserDetailsService(myUserDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;
@@ -55,14 +58,20 @@ public class ApiSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home").permitAll() // global links, do everything they can
-                        .anyRequest().authenticated()
+//                .authorizeHttpRequests((requests) -> requests
+//                        .requestMatchers("/home").permitAll()
+//                        .anyRequest().anonymous()  // global links, do everything they can
+//                )
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/api").permitAll()
+//                        .anyRequest().authenticated()
                 )
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll() // Everyone can see login
-                )
+//                .formLogin((form) -> form
+//                        .loginPage("/login") // map to login page when user want to see something
+//                        .permitAll() // Everyone can see login
+//                )
+                .httpBasic(Customizer.withDefaults())
+                .userDetailsService(myUserDetailsService)
                 .logout(LogoutConfigurer::permitAll); // everyone can log out
         return http.build();
     }
@@ -77,5 +86,5 @@ public class ApiSecurityConfig {
 //                        .build();
 //
 //        return new InMemoryUserDetailsManager(userDetails);
-//    }
+//    }*/
 }
