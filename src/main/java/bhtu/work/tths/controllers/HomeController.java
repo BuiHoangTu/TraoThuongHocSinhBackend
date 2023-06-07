@@ -1,5 +1,6 @@
 package bhtu.work.tths.controllers;
 
+import bhtu.work.tths.models.User;
 import bhtu.work.tths.repositories.mongo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/home")
+@RequestMapping("home")
 public class HomeController {
 
     @Autowired
@@ -21,7 +22,7 @@ public class HomeController {
     }
 
     @GetMapping("username")
-    public Boolean checkUserExist(@RequestParam(name = "username", defaultValue = "MrPresident") String username) {
-        return  this.userRepo.existsByUsername(username);
+    public User checkUserExist(@RequestParam(name = "username", defaultValue = "MrPresident") String username) {
+        return  this.userRepo.findByUsername(username).orElseThrow(() -> null);
     }
 }

@@ -4,7 +4,6 @@ public enum EGetStudents {
     ID(1),
     NAME(2),
     SCHOOL(3),
-    CLASS(4),
     PARENT(5)
     
     ;//--------------------------------------------

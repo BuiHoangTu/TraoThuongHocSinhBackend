@@ -13,16 +13,17 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-//@Configuration
-//@EnableMethodSecurity
-//@EnableWebSecurity
+@Configuration
+@EnableMethodSecurity
+@EnableWebSecurity
 public class ApiSecurityConfig {
-    /*@Bean
+    @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -64,7 +65,7 @@ public class ApiSecurityConfig {
 //                )
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api").permitAll()
-//                        .anyRequest().authenticated()
+                        .anyRequest().authenticated()
                 )
 //                .formLogin((form) -> form
 //                        .loginPage("/login") // map to login page when user want to see something
@@ -73,7 +74,7 @@ public class ApiSecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .userDetailsService(myUserDetailsService)
                 .logout(LogoutConfigurer::permitAll); // everyone can log out
-        return http.build();
+        return http.headers(headers -> {headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin);}).build();
     }
 
 //    @Bean

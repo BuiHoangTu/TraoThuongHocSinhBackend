@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,6 +28,7 @@ public class StudentController {
     }
 
     // #region mapping
+    @PreAuthorize("authentication.authorities.contains('READ_NATIONAL_STUDENTS')")
     @GetMapping("get")
     public Student getStudent(@RequestParam(name = "id") @NonNull String id) {
         return studentService.getStudentById(id);

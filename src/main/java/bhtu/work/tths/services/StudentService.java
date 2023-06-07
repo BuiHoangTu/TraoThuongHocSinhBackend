@@ -78,35 +78,4 @@ public class StudentService {
         return studentRepo.save(onDbStudent);
     }
 
-    // ------------------------------------------------------------------------------------------------------------------------------
-
-    public int getPhanThuongDaTrao(EStatisticCriteria loaiMa) {
-        return 0;
-    }
-    // public boolean themPhanThuong(String ten, String maHK, String danhHieu)
-    // {return false;}
-    // public boolean themPhanThuong(PhanThuong phanThuong) {
-    // return false;
-    // }
-
-    public int getVoDaPhat() {
-        return 0;
-    }
-
-    public int getVoChuaPhat() {
-        return 0;
-    }
-
-    public List<RewardByHouseholdNumber> getPTHK(String filter) {
-        return null;
-    }
-
-    public List<RewardByEvent> getPTDot(String filter) {
-        return null;
-    }
-
-    public List<EventOfStudent> getThuong(String maHS) {
-        return null;
-    }
-
 }

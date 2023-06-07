@@ -43,7 +43,7 @@ public class StudentConfig {
 			e.setTotalExpense(100_000);
 			e.getPrizes().add((new PrizeGroup("Banh (cai)", 13)));
 			e.getPrizes().add(new PrizeGroup("Keo (goi)", 2));
-			repo.save(h);
+			// repo.save(h);
 		};
 	}
 }
