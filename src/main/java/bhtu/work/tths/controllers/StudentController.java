@@ -46,9 +46,9 @@ public class StudentController {
         return true;
     }
 
-    @PutMapping("change")
-    public boolean changeStudent(@RequestBody StudentOneReward changedStudent) {
-        studentService.changeStudent(changedStudent);
+    @PutMapping("update")
+    public boolean updateStudent(@RequestBody StudentOneReward changedStudent) {
+        studentService.updateStudent(changedStudent);
         return true;
     }
 

@@ -12,7 +12,7 @@ import bhtu.work.tths.models.PrizePeriod;
 import bhtu.work.tths.services.PrizePeriodService;
 
 @RestController
-@RequestMapping("api/prizeperiod")
+@RequestMapping("api/prize-period")
 public class PrizePeriodController {
     private final PrizePeriodService prizePeriodService;
 
@@ -28,9 +28,9 @@ public class PrizePeriodController {
     }
 
 
-    @PutMapping("change")
-    public boolean changePrizeLevel(@RequestBody PrizePeriod prizePeriod) {
-        this.prizePeriodService.changeAwardLevel(prizePeriod);
+    @PutMapping("update")
+    public boolean updatePrizeLevel(@RequestBody PrizePeriod prizePeriod) {
+        this.prizePeriodService.updateAwardLevel(prizePeriod);
         return true;
     }
     //#endregion

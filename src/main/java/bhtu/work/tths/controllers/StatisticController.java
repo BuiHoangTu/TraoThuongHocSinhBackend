@@ -8,27 +8,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bhtu.work.tths.models.dto.RewardByEvent;
 import bhtu.work.tths.models.dto.RewardByHouseholdNumber;
-import bhtu.work.tths.services.SatisticService;
+import bhtu.work.tths.services.StatisticService;
 
 @RestController
-@RequestMapping("api/satistic")
-public class SatisticController {
-    private final SatisticService satisticService;
+@RequestMapping("api/statistic")
+public class StatisticController {
+    private final StatisticService statisticService;
 
     @Autowired
-    public SatisticController(SatisticService satisticService) {
-        this.satisticService = satisticService;
+    public StatisticController(StatisticService statisticService) {
+        this.statisticService = statisticService;
     }
 
     // #region mapping
     @GetMapping("event")
     public RewardByEvent getRewardByEvent(@RequestParam(name = "filter") String eventFilter, @RequestParam(name = "filterType", defaultValue = "eventname") String filterType) {
-        return this.satisticService.getRewardByEvent(eventFilter, filterType);
+        return this.statisticService.getRewardByEvent(eventFilter, filterType);
     }
 
-    @GetMapping("householdnumber")
+    @GetMapping("household-number")
     public RewardByHouseholdNumber getByHouseholdNumber(@RequestParam(name = "filter") String householdNumber) {
-        return this.satisticService.getByHouseholdNumber(householdNumber);
+        return this.statisticService.getByHouseholdNumber(householdNumber);
     }
     //#endregion
 }

@@ -24,7 +24,7 @@ public class AuthController {
     }
 
     // #region mapping
-    @PostMapping("signin")
+    @PostMapping("sign-in")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         return this.authService.authenticateUser(loginRequest);
     }

@@ -32,7 +32,7 @@ public class AwardPeriodService {
         return this.awardPeriodRepo.findByDateOfApply(dateOfApply);
     }
 
-    public AwardPeriod changeAwardLevel(AwardPeriod awardPeriod) {
+    public AwardPeriod updateAwardLevel(AwardPeriod awardPeriod) {
         return this.awardPeriodRepo.save(awardPeriod);
     }
 

@@ -10,14 +10,14 @@ import bhtu.work.tths.repositories.mongo.PrizePeriodRepo;
 import bhtu.work.tths.repositories.mongo.StudentRepo;
 
 @Service
-public class SatisticService {
+public class StatisticService {
     private final AwardPeriodRepo awardPeriodRepo;
     private final PrizePeriodRepo prizePeriodRepo;
     private final StudentRepo studentRepo;
 
     @Autowired
-    public SatisticService(AwardPeriodRepo awardPeriodRepo, PrizePeriodRepo prizePeriodRepo,
-            StudentRepo studentRepo) {
+    public StatisticService(AwardPeriodRepo awardPeriodRepo, PrizePeriodRepo prizePeriodRepo,
+                            StudentRepo studentRepo) {
         this.awardPeriodRepo = awardPeriodRepo;
         this.prizePeriodRepo = prizePeriodRepo;
         this.studentRepo = studentRepo;

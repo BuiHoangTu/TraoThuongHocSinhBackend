@@ -56,7 +56,7 @@ public class StudentService {
         return studentRepo.findById(Id).get();
     }
 
-    public Student changeStudent(StudentOneReward changedStudent) {
+    public Student updateStudent(StudentOneReward changedStudent) {
         EventOfStudent rewardToChange = changedStudent.lastestEvent();
         Student studentToChange = new Student(changedStudent.id(), changedStudent.name(), changedStudent.dateOfBirth(),
                 changedStudent.school(), changedStudent.householdNumber(), changedStudent.parent());
