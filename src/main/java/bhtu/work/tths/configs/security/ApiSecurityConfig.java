@@ -61,8 +61,8 @@ public class ApiSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/api").authenticated() // all link-accesses start with /api must be authenticated
-                        .anyRequest().permitAll() // any other request is open for all
+                        .requestMatchers("/api/open", "/api/auth/sign-in", "/api/auth/signup").permitAll() // open, auth apis are for all
+                        .anyRequest().authenticated() // any other request must be authenticated first
                 )
 //                .formLogin((form) -> form
 //                        .loginPage("/login") // map to login page when user want to see something
