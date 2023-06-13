@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -59,13 +60,9 @@ public class ApiSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-//                .authorizeHttpRequests((requests) -> requests
-//                        .requestMatchers("/home").permitAll()
-//                        .anyRequest().anonymous()  // global links, do everything they can
-//                )
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/api").authenticated()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/api").authenticated() // all link-accesses start with /api must be authenticated
+                        .anyRequest().permitAll() // any other request is open for all
                 )
 //                .formLogin((form) -> form
 //                        .loginPage("/login") // map to login page when user want to see something
@@ -73,8 +70,9 @@ public class ApiSecurityConfig {
 //                )
                 .httpBasic(Customizer.withDefaults())
                 .userDetailsService(myUserDetailsService)
+                .cors(Customizer.withDefaults())
                 .logout(LogoutConfigurer::permitAll); // everyone can log out
-        return http.headers(headers -> {headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin);}).build();
+        return http/*.headers(headers -> {headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin);})*/.build();
     }
 
 //    @Bean
