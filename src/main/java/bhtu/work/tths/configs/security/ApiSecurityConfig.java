@@ -64,8 +64,8 @@ public class ApiSecurityConfig {
 //                        .anyRequest().anonymous()  // global links, do everything they can
 //                )
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/api").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api").authenticated()
+                        .anyRequest().permitAll()
                 )
 //                .formLogin((form) -> form
 //                        .loginPage("/login") // map to login page when user want to see something

@@ -20,14 +20,14 @@ public class PrizePeriodService {
 
     public PrizePeriod getAwardPeriod(String dateString) {
         LocalDate dateOfApply;
-        if (dateString != null) {
+        if (dateString == null || !dateString.isEmpty()) {
+            dateOfApply = LocalDate.now();
+        } else {
             try {
                 dateOfApply = LocalDate.parse(dateString);
             } catch (DateTimeParseException _e) {
                 dateOfApply = LocalDate.now();
             }
-        } else {
-            dateOfApply = LocalDate.now();
         }
         return this.periodRepo.findByDateOfApply(dateOfApply);
     }

@@ -70,9 +70,7 @@ public class StudentService {
 
         var rewardOrNot = onDbStudent.getEvents().stream()
                 .filter((reward1) -> reward1.getDateOfEvent().equals(rewardToChange.getDateOfEvent())).findFirst();
-        if (rewardOrNot.isPresent()) {
-            onDbStudent.getEvents().remove(rewardOrNot.get());
-        }
+        rewardOrNot.ifPresent(eventOfStudent -> onDbStudent.getEvents().remove(eventOfStudent));
         onDbStudent.getEvents().add(rewardToChange);
 
         return studentRepo.save(onDbStudent);
