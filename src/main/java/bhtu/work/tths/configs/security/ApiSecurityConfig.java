@@ -13,16 +13,17 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.session.web.http.HeaderHttpSessionStrategy;
 
 @Configuration
 @EnableMethodSecurity
 @EnableWebSecurity
+// @Order(SecurityProperties.IGNORED_ORDER)
 public class ApiSecurityConfig {
     @Bean
     public static PasswordEncoder passwordEncoder() {
@@ -70,7 +71,10 @@ public class ApiSecurityConfig {
 //                )
                 .httpBasic(Customizer.withDefaults())
                 .userDetailsService(myUserDetailsService)
-                .cors(Customizer.withDefaults())
+                .cors(Customizer.withDefaults()) // allow all diff ports access
+                .csrf((httpSecurityCsrfConfigurer) -> {
+                    httpSecurityCsrfConfigurer.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                })
                 .logout(LogoutConfigurer::permitAll); // everyone can log out
         return http/*.headers(headers -> {headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin);})*/.build();
     }

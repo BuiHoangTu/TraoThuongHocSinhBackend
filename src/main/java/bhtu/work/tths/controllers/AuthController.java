@@ -3,16 +3,16 @@ package bhtu.work.tths.controllers;
 import bhtu.work.tths.services.AuthService;
 import bhtu.work.tths.models.dto.LoginRequest;
 import bhtu.work.tths.models.dto.SignupRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Collections;
+import java.util.Map;
 
 
 @RestController
@@ -36,7 +36,12 @@ public class AuthController {
         return this.authService.registerParent(signUpRequest);
     }
 
-    @RequestMapping("user")
+    @RequestMapping("token")
+    public Map<String, String> getToken(HttpSession session) {
+        return Collections.singletonMap("token", session.getId());
+    }
+
+     @RequestMapping("user")
     public Principal user(Principal user) {
         return user;
     }

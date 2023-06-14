@@ -5,6 +5,7 @@ import bhtu.work.tths.configs.security.services.MyUserDetails;
 import bhtu.work.tths.models.User;
 import bhtu.work.tths.models.UserAcess;
 import bhtu.work.tths.models.dto.LoginRequest;
+import bhtu.work.tths.models.dto.LoginResponse;
 import bhtu.work.tths.models.dto.SignupRequest;
 import bhtu.work.tths.models.enums.EUserAccess;
 import bhtu.work.tths.repositories.mongo.UserAccessRepo;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,12 +53,12 @@ public class AuthService {
 
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
+        List<String> accesses = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList();
 
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body("Success");
+                .body(new LoginResponse(userDetails.getUsername(), accesses));
     }
 
     public ResponseEntity<?> registerParent(SignupRequest signUpRequest) {
@@ -64,6 +66,12 @@ public class AuthService {
             return ResponseEntity
                     .badRequest()
                     .body("Error: Username is already taken!");
+        }
+
+        if (this.userRepo.existsByAccessRegion(signUpRequest.householdNumber())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Error: This household already have an account!");
         }
 
         // Create new user's account
@@ -74,9 +82,9 @@ public class AuthService {
                 signUpRequest.householdNumber()
         );
 
-        Set<UserAcess> userAcesses = UserAcess.build(EUserAccess.READ_A_STUDENT, EUserAccess.FIX_A_STUDENT_DETAIL);
+        Set<UserAcess> userAccesses = UserAcess.build(EUserAccess.READ_A_STUDENT, EUserAccess.FIX_A_STUDENT_DETAIL);
 
-        user.setAccesses(userAcesses);
+        user.setAccesses(userAccesses);
         userRepo.insert(user);
 
         return authenticateUser(new LoginRequest(user.getUsername(), user.getPassword()));
