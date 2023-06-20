@@ -43,6 +43,7 @@ public class AuthService {
     private JwtUtils jwtUtils;
 
     public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
+        // TODO: get user from own repo 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
 

@@ -17,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/auth")
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(originPatterns = "*", maxAge = 3600)
 public class AuthController {
     private final AuthService authService;
 
@@ -27,7 +27,7 @@ public class AuthController {
     }
 
     // #region mapping
-    @PostMapping("sign-in")
+    @PostMapping("login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         return this.authService.authenticateUser(loginRequest);
     }

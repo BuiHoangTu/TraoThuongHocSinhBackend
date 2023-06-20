@@ -67,8 +67,9 @@ public class ApiSecurityConfig {
                 .sessionManagement((x) -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((requests) -> {
                     requests
-                            .requestMatchers("/api/open/**", "/api/auth/sign-in", "/api/auth/signup").permitAll() // open, auth apis are for all
-                            .anyRequest().authenticated(); // any other request must be authenticated first
+                            .requestMatchers("/api/open/**", "/api/auth/login", "/api/auth/signup").permitAll() // open, auth apis are for all
+                            .requestMatchers("/api/**").authenticated() // any other request to /api must be authenticated first
+                            .anyRequest().permitAll(); // non api prefix is not in our control, pass it
                 });
 //                .formLogin((form) -> form
 //                        .loginPage("/login") // map to login page when user want to see something
