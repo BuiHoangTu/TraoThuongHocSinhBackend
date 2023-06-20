@@ -1,4 +1,4 @@
-package bhtu.work.tths.configs.security.services;
+package bhtu.work.tths.security.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,7 +1,7 @@
 package bhtu.work.tths.services;
 
-import bhtu.work.tths.configs.security.jwt.JwtUtils;
-import bhtu.work.tths.configs.security.services.MyUserDetails;
+import bhtu.work.tths.security.jwt.JwtUtils;
+import bhtu.work.tths.security.services.MyUserDetails;
 import bhtu.work.tths.models.User;
 import bhtu.work.tths.models.UserAcess;
 import bhtu.work.tths.models.dto.LoginRequest;
@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class AuthService {
@@ -68,6 +67,7 @@ public class AuthService {
                     .body("Error: Username is already taken!");
         }
 
+        // with parent, AccessRegion is household number, 1 family should only have 1 account
         if (this.userRepo.existsByAccessRegion(signUpRequest.householdNumber())) {
             return ResponseEntity
                     .badRequest()

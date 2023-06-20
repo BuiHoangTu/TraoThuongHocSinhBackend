@@ -1,4 +1,4 @@
-package bhtu.work.tths.configs.security.services;
+package bhtu.work.tths.security.services;
 
 import java.io.Serial;
 import java.util.Collection;
@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import bhtu.work.tths.models.User;
 
 public class MyUserDetails implements UserDetails {
-    @Serial
     private static final long serialVersionUID = 1L;
 
     private final String username;

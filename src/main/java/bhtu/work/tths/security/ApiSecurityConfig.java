@@ -1,8 +1,8 @@
-package bhtu.work.tths.configs.security;
+package bhtu.work.tths.security;
 
-import bhtu.work.tths.configs.security.jwt.AuthEntryPointJwt;
-import bhtu.work.tths.configs.security.jwt.AuthTokenFilter;
-import bhtu.work.tths.configs.security.services.MyUserDetailsService;
+import bhtu.work.tths.security.jwt.AuthEntryPointJwt;
+import bhtu.work.tths.security.jwt.AuthTokenFilter;
+import bhtu.work.tths.security.services.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,12 +13,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.session.web.http.HeaderHttpSessionStrategy;
 
 @Configuration
 @EnableMethodSecurity
@@ -26,7 +26,7 @@ import org.springframework.session.web.http.HeaderHttpSessionStrategy;
 // @Order(SecurityProperties.IGNORED_ORDER)
 public class ApiSecurityConfig {
     @Bean
-    public static PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -61,21 +61,27 @@ public class ApiSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/api/open", "/api/auth/sign-in", "/api/auth/signup").permitAll() // open, auth apis are for all
-                        .anyRequest().authenticated() // any other request must be authenticated first
-                )
+                .cors(Customizer.withDefaults()) // allow all diff ports access
+                .csrf((httpSecurityCsrfConfigurer) -> httpSecurityCsrfConfigurer.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                .exceptionHandling((x) -> x.authenticationEntryPoint(unauthorizedHandler))
+                .sessionManagement((x) -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests((requests) -> {
+                    requests
+                            .requestMatchers("/api/open/**", "/api/auth/sign-in", "/api/auth/signup").permitAll() // open, auth apis are for all
+                            .anyRequest().authenticated(); // any other request must be authenticated first
+                });
 //                .formLogin((form) -> form
 //                        .loginPage("/login") // map to login page when user want to see something
 //                        .permitAll() // Everyone can see login
 //                )
-                .httpBasic(Customizer.withDefaults())
-                .userDetailsService(myUserDetailsService)
-                .cors(Customizer.withDefaults()) // allow all diff ports access
-                .csrf((httpSecurityCsrfConfigurer) -> {
-                    httpSecurityCsrfConfigurer.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-                })
-                .logout(LogoutConfigurer::permitAll); // everyone can log out
+//                .httpBasic(Customizer.withDefaults())
+//                .userDetailsService(myUserDetailsService) // set in authenticationProvider
+//                .logout(LogoutConfigurer::permitAll); // everyone can log out
+
+        http.authenticationProvider(authenticationProvider());
+
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
         return http/*.headers(headers -> {headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin);})*/.build();
     }
 

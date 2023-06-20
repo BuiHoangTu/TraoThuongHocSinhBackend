@@ -1,6 +1,6 @@
-package bhtu.work.tths.configs.security.jwt;
+package bhtu.work.tths.security.jwt;
 
-import bhtu.work.tths.configs.security.services.MyUserDetails;
+import bhtu.work.tths.security.services.MyUserDetails;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
