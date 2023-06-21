@@ -61,18 +61,21 @@ public class ApiSecurityConfig {
         return new ProviderManager(provider);
     }
 
-
+    private static final String[] openUrls = {"/api/open/**", "/api/auth/login", "/api/auth/signup"};
     @Bean
     @Autowired
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .cors(Customizer.withDefaults()) // allow all diff ports access
-                .csrf((httpSecurityCsrfConfigurer) -> httpSecurityCsrfConfigurer.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                .csrf((httpSecurityCsrfConfigurer) -> {
+                    httpSecurityCsrfConfigurer.ignoringRequestMatchers(openUrls);
+                    httpSecurityCsrfConfigurer.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                })
                 .exceptionHandling((x) -> x.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement((x) -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((requests) -> {
                     requests
-                            .requestMatchers("/api/open/**", "/api/auth/login", "/api/auth/signup").permitAll() // open, auth apis are for all
+                            .requestMatchers(openUrls).permitAll() // open, auth apis are for all
                             .requestMatchers("/api/**").authenticated() // any other request to /api must be authenticated first
                             .anyRequest().permitAll(); // non api prefix is not in our control, pass it
                 });
