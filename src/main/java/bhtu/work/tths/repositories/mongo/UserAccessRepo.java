@@ -9,5 +9,4 @@ import bhtu.work.tths.models.enums.EUserAccess;
 
 
 public interface UserAccessRepo extends MongoRepository<UserAcess, Integer>{
-    Optional<UserAcess> findByAccess(EUserAccess access);
 }

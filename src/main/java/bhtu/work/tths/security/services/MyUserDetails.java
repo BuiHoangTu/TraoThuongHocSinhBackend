@@ -25,13 +25,6 @@ public class MyUserDetails implements UserDetails {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-//    public MyUserDetails(String username, String password,
-//                         Collection<? extends GrantedAuthority> authorities) {
-//        this.username = username;
-//        this.password = password;
-//        this.authorities = authorities;
-//    }
-
     public MyUserDetails (User user) {
         List<GrantedAuthority> authorities = user.getAccesses().stream()
                 .map(access -> new SimpleGrantedAuthority(access.getAccess().name()))

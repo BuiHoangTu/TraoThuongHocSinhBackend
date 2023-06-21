@@ -29,15 +29,13 @@ import java.util.Set;
 public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepo userRepo;
-    private final UserAccessRepo userAccessRepo;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils jwtUtils;
 
     @Autowired
-    public AuthService(AuthenticationManager authenticationManager, UserRepo userRepo, UserAccessRepo userAccessRepo, PasswordEncoder passwordEncoder, JwtUtils jwtUtils) {
+    public AuthService(AuthenticationManager authenticationManager, UserRepo userRepo, PasswordEncoder passwordEncoder, JwtUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
         this.userRepo = userRepo;
-        this.userAccessRepo = userAccessRepo;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtils = jwtUtils;
     }

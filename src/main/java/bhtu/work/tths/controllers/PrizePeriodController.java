@@ -1,6 +1,7 @@
 package bhtu.work.tths.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bhtu.work.tths.models.PrizePeriod;
 import bhtu.work.tths.services.PrizePeriodService;
+
+import java.util.Collections;
 
 @RestController
 @RequestMapping("api/prize-period")
@@ -23,15 +26,15 @@ public class PrizePeriodController {
 
     //#region mapping
     @GetMapping("get")
-    public PrizePeriod getPrizePeriod(@RequestParam(name = "date", required = false) String dateString) {
-        return this.prizePeriodService.getAwardPeriod(dateString);
+    public ResponseEntity<PrizePeriod> getPrizePeriod(@RequestParam(name = "date", required = false) String dateString) {
+        return ResponseEntity.ok().body(this.prizePeriodService.getAwardPeriod(dateString));
     }
 
 
     @PutMapping("update")
-    public boolean updatePrizeLevel(@RequestBody PrizePeriod prizePeriod) {
+    public ResponseEntity<?> updatePrizeLevel(@RequestBody PrizePeriod prizePeriod) {
         this.prizePeriodService.updateAwardLevel(prizePeriod);
-        return true;
+        return ResponseEntity.ok().body(Collections.singletonMap("isUpdated", true));
     }
     //#endregion
 }

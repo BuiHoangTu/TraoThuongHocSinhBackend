@@ -15,7 +15,7 @@ public class UserAccessesConfig {
     @Bean
     CommandLineRunner UserAccessRunner(UserAccessRepo repo) {
         return (args) -> {
-            Set<UserAcess> xs = UserAcess.build(EUserAccess.values());
+            Set<UserAcess> xs = UserAcess.build(EUserAccess.values()); 
             // repo.saveAll(xs);
         };
     }

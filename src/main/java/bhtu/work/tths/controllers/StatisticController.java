@@ -1,6 +1,7 @@
 package bhtu.work.tths.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,13 +23,13 @@ public class StatisticController {
 
     // #region mapping
     @GetMapping("event")
-    public RewardByEvent getRewardByEvent(@RequestParam(name = "filter") String eventFilter, @RequestParam(name = "filterType", defaultValue = "eventname") String filterType) {
-        return this.statisticService.getRewardByEvent(eventFilter, filterType);
+    public ResponseEntity<RewardByEvent> getRewardByEvent(@RequestParam(name = "filter") String eventFilter, @RequestParam(name = "filterType", defaultValue = "eventname") String filterType) {
+        return ResponseEntity.ok().body(this.statisticService.getRewardByEvent(eventFilter, filterType));
     }
 
     @GetMapping("household-number")
-    public RewardByHouseholdNumber getByHouseholdNumber(@RequestParam(name = "filter") String householdNumber) {
-        return this.statisticService.getByHouseholdNumber(householdNumber);
+    public ResponseEntity<RewardByHouseholdNumber> getByHouseholdNumber(@RequestParam(name = "filter") String householdNumber) {
+        return ResponseEntity.ok().body(this.statisticService.getByHouseholdNumber(householdNumber));
     }
     //#endregion
 }
