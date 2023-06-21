@@ -27,20 +27,20 @@ import java.util.Set;
 
 @Service
 public class AuthService {
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final UserRepo userRepo;
+    private final UserAccessRepo userAccessRepo;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtils jwtUtils;
 
     @Autowired
-    private UserRepo userRepo;
-
-    @Autowired
-    private UserAccessRepo userAccessRepo;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private JwtUtils jwtUtils;
+    public AuthService(AuthenticationManager authenticationManager, UserRepo userRepo, UserAccessRepo userAccessRepo, PasswordEncoder passwordEncoder, JwtUtils jwtUtils) {
+        this.authenticationManager = authenticationManager;
+        this.userRepo = userRepo;
+        this.userAccessRepo = userAccessRepo;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtils = jwtUtils;
+    }
 
     public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
         // TODO: get user from own repo 

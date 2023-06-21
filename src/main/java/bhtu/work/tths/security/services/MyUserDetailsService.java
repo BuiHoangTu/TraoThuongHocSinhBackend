@@ -13,8 +13,12 @@ import bhtu.work.tths.repositories.mongo.UserRepo;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
-    @Autowired
     UserRepo userRepo;
+
+    @Autowired
+    public MyUserDetailsService(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
     @Override
     @Transactional

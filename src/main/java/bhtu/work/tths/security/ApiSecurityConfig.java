@@ -30,16 +30,15 @@ public class ApiSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    private final MyUserDetailsService myUserDetailsService;
+    private final AuthEntryPointJwt unauthorizedHandler;
+    private final AuthTokenFilter authenticationJwtTokenFilter;
 
     @Autowired
-    private MyUserDetailsService myUserDetailsService;
-
-    @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
-
-    @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter();
+    public ApiSecurityConfig(MyUserDetailsService myUserDetailsService, AuthEntryPointJwt unauthorizedHandler, AuthTokenFilter authenticationJwtTokenFilter) {
+        this.myUserDetailsService = myUserDetailsService;
+        this.unauthorizedHandler = unauthorizedHandler;
+        this.authenticationJwtTokenFilter = authenticationJwtTokenFilter;
     }
 
     @Bean
@@ -81,7 +80,7 @@ public class ApiSecurityConfig {
 
         http.authenticationProvider(authenticationProvider());
 
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http/*.headers(headers -> {headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin);})*/.build();
     }

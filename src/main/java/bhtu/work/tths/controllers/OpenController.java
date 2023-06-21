@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/open")
 public class OpenController {
+    private final UserRepo userRepo;
 
     @Autowired
-    private UserRepo userRepo;
+    public OpenController(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
     @GetMapping("daily-quote")
     public String getDailyQuote() {
