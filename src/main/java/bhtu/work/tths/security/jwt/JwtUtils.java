@@ -8,13 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
-import org.springframework.stereotype.Component;
+import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
 import java.util.Date;
+import java.util.function.Function;
 
-@Component
-public class JwtUtils {
+@Service
+public class JwtUtils implements IJwtService {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     @Value("${spring.app.jwtSecret}")
@@ -26,7 +28,8 @@ public class JwtUtils {
     @Value("${spring.app.jwtCookieName}")
     private String jwtCookie;
 
-    public String getJwtFromCookies(HttpServletRequest request) {
+    @Override
+    public String getJwt(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         if (cookie != null) {
             return cookie.getValue();
@@ -35,20 +38,24 @@ public class JwtUtils {
         }
     }
 
-    public ResponseCookie generateJwtCookie(MyUserDetails userPrincipal) {
+    @Override
+    public ResponseCookie generateJwtCookie(@NonNull MyUserDetails userPrincipal) {
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());
         return ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
     }
 
+    @Override
     public ResponseCookie getCleanJwtCookie() {
-        return ResponseCookie.from(jwtCookie, null).path("/api").build();
+        return ResponseCookie.from(jwtCookie, "").path("/api").build();
     }
 
-    public String getUserNameFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    @Override
+    public String extractUserName(String jwt) {
+        return this.extractClaim(jwt, Claims::getSubject);
     }
 
-    public boolean validateJwtToken(String authToken) {
+    @Override
+    public boolean validateJwt(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
@@ -67,7 +74,7 @@ public class JwtUtils {
         return false;
     }
 
-    public String generateTokenFromUsername(String username) {
+    private String generateTokenFromUsername(String username) {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
@@ -75,4 +82,10 @@ public class JwtUtils {
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
+
+    private <T> T extractClaim(String token, Function<Claims, T> claimApplier) {
+        final Claims c = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody()/*.getSubject()*/;
+        return claimApplier.apply(c);
+    }
+
 }

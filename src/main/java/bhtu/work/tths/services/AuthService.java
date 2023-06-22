@@ -1,6 +1,6 @@
 package bhtu.work.tths.services;
 
-import bhtu.work.tths.security.jwt.JwtUtils;
+import bhtu.work.tths.security.jwt.IJwtService;
 import bhtu.work.tths.security.services.MyUserDetails;
 import bhtu.work.tths.models.User;
 import bhtu.work.tths.models.UserAcess;
@@ -29,14 +29,14 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtils jwtUtils;
+    private final IJwtService IJwtService;
 
     @Autowired
-    public AuthService(AuthenticationManager authenticationManager, UserRepo userRepo, PasswordEncoder passwordEncoder, JwtUtils jwtUtils) {
+    public AuthService(AuthenticationManager authenticationManager, UserRepo userRepo, PasswordEncoder passwordEncoder, IJwtService IJwtService) {
         this.authenticationManager = authenticationManager;
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
-        this.jwtUtils = jwtUtils;
+        this.IJwtService = IJwtService;
     }
 
     public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
@@ -48,7 +48,7 @@ public class AuthService {
 
         MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
 
-        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+        ResponseCookie jwtCookie = IJwtService.generateJwtCookie(userDetails);
 
         List<String> accesses = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)

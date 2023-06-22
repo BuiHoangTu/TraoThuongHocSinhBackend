@@ -11,7 +11,7 @@ public enum EUserAccess {
     READ_NATIONAL_SATISTIC (32)
     ;
     //----------------------------------------------
-    public int value;
+    public final int value;
 
     private EUserAccess(int value) {
         this.value = value;
