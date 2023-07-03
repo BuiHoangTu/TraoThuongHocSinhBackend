@@ -31,7 +31,7 @@ public class OpenController {
     }
 
     @GetMapping("username")
-    public ResponseEntity<User> checkUserExist(@RequestParam(name = "username", defaultValue = "MrPresident") String username) {
+    public ResponseEntity<User> checkUserExist(@RequestParam(name = "username", defaultValue = "admin") String username) {
         return ResponseEntity.ok().body(this.userRepo.findByUsername(username).orElseThrow(() -> null));
     }
 

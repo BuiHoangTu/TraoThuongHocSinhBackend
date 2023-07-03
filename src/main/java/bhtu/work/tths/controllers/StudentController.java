@@ -51,6 +51,5 @@ public class StudentController {
         Map<String, Boolean> response = Collections.singletonMap("isUpdated", true);
         return ResponseEntity.ok().body(response);
     }
-
     // #endregion
 }
