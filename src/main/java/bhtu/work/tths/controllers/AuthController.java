@@ -34,8 +34,10 @@ public class AuthController {
     // #region mapping
     @PostMapping("login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        logger.info("User logging in: Username:" + loginRequest.username() + "; Password:" + loginRequest.password());
-        return this.authService.authenticateUser(loginRequest);
+        logger.debug("User logging in: Username:" + loginRequest.username() + "; Password:" + loginRequest.password());
+        var response = this.authService.authenticateUser(loginRequest);
+        logger.debug(response.getHeaders().toString());
+        return response;
     }
 
     @PostMapping("signup")

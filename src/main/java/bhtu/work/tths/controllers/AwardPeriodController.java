@@ -2,6 +2,7 @@ package bhtu.work.tths.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import java.util.Collections;
 
 @RestController
 @RequestMapping("api/award-period")
+@CrossOrigin(originPatterns = "*", maxAge = 3600)
 public class AwardPeriodController {
     private final AwardPeriodService awardPeriodService;
 
