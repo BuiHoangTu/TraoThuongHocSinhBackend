@@ -3,8 +3,6 @@ package bhtu.work.tths.security;
 import bhtu.work.tths.security.jwt.AuthEntryPointJwt;
 import bhtu.work.tths.security.jwt.AuthTokenFilter;
 import bhtu.work.tths.security.services.MyUserDetailsService;
-import jakarta.servlet.http.HttpServletRequest;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,7 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -104,22 +101,11 @@ public class ApiSecurityConfig {
                     .anyRequest().permitAll(); // non api prefix is not in our control, pass it
         });
 
-        // .formLogin((form) -> form
-        // .loginPage("/login") // map to login page when user want to see something
-        // .permitAll() // Everyone can see login
-        // )
-        // .httpBasic(Customizer.withDefaults())
-        // .userDetailsService(myUserDetailsService) // set in authenticationProvider
-        // .logout(LogoutConfigurer::permitAll); // everyone can log out
-
         http.authenticationProvider(authenticationProvider());
 
         http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return http/*
-                    * .headers(headers ->
-                    * {headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin);})
-                    */.build();
+        return http.build();
     }
 
     @Bean
@@ -137,16 +123,4 @@ public class ApiSecurityConfig {
 
         return source;
     }
-
-    // @Bean
-    // public UserDetailsService userDetailsService() {
-    // UserDetails userDetails =
-    // User.withDefaultPasswordEncoder()
-    // .username("user")
-    // .password("password")
-    // .roles("USER")
-    // .build();
-    //
-    // return new InMemoryUserDetailsManager(userDetails);
-    // }*/
 }

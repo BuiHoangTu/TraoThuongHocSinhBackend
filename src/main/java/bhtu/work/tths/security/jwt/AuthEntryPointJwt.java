@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * How auth error should be treated 
+ */
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
@@ -27,7 +31,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-        final Map<String, Object> body = new HashMap<>();
+        final Map<String, Object> body = new HashMap<>(4);
         body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
         body.put("error", "Unauthorized");
         body.put("message", authException.getMessage());

@@ -19,6 +19,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,32 +31,37 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
-    private final IJwtService IJwtService;
+    private final IJwtService jwtService;
+    private final CsrfTokenRepository csrfRepo = CookieCsrfTokenRepository.withHttpOnlyFalse();
 
     @Autowired
-    public AuthService(AuthenticationManager authenticationManager, UserRepo userRepo, PasswordEncoder passwordEncoder, IJwtService IJwtService) {
+    public AuthService(AuthenticationManager authenticationManager, UserRepo userRepo, PasswordEncoder passwordEncoder,
+            IJwtService jwtService) {
         this.authenticationManager = authenticationManager;
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
-        this.IJwtService = IJwtService;
+        this.jwtService = jwtService;
     }
 
     public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
-        // TODO: get user from own repo 
+        // get an authentication
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password()));
-
+        // set to server
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
+        // make JWToken corresopnding with it and include in cookies
         MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
+        ResponseCookie jwtCookie = jwtService.generateJwtCookie(userDetails);
 
-        ResponseCookie jwtCookie = IJwtService.generateJwtCookie(userDetails);
 
+        // accesses maybe needed for UI display
         List<String> accesses = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                // .header(CSRF, null)
                 .body(new LoginResponse(userDetails.getUsername(), accesses));
     }
 
@@ -65,7 +72,8 @@ public class AuthService {
                     .body("Error: Username is already taken!");
         }
 
-        // with parent, AccessRegion is household number, 1 family should only have 1 account
+        // with parent, AccessRegion is household number, 1 family should only have 1
+        // account
         if (this.userRepo.existsByAccessRegion(signUpRequest.householdNumber())) {
             return ResponseEntity
                     .badRequest()
@@ -77,8 +85,7 @@ public class AuthService {
                 null,
                 signUpRequest.username(),
                 passwordEncoder.encode(signUpRequest.password()),
-                signUpRequest.householdNumber()
-        );
+                signUpRequest.householdNumber());
 
         Set<UserAcess> userAccesses = UserAcess.build(EUserAccess.READ_A_STUDENT, EUserAccess.FIX_A_STUDENT_DETAIL);
 

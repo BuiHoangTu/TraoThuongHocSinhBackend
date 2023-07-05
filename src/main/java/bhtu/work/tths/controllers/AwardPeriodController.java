@@ -1,5 +1,7 @@
 package bhtu.work.tths.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bhtu.work.tths.models.AwardPeriod;
 import bhtu.work.tths.services.AwardPeriodService;
+import jakarta.validation.Valid;
 
 import java.util.Collections;
 
@@ -19,6 +22,8 @@ import java.util.Collections;
 @RequestMapping("api/award-period")
 @CrossOrigin(originPatterns = "*", maxAge = 3600)
 public class AwardPeriodController {
+    private static final Logger logger = LoggerFactory.getLogger(AwardPeriodController.class);
+
     private final AwardPeriodService awardPeriodService;
 
     @Autowired
@@ -34,7 +39,8 @@ public class AwardPeriodController {
 
 
     @PutMapping("update")
-    public ResponseEntity<?> updateAwardLevel(@RequestBody AwardPeriod awardPeriod) {
+    public ResponseEntity<?> updateAwardLevel(@Valid @RequestBody AwardPeriod awardPeriod) {
+        logger.info("Trying to update AwardLevel");
         this.awardPeriodService.updateAwardLevel(awardPeriod);
         return ResponseEntity.ok().body(Collections.singletonMap("isUpdated", true));
     }

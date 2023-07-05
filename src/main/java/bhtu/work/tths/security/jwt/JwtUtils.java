@@ -26,11 +26,11 @@ public class JwtUtils implements IJwtService {
     private int jwtExpirationMs;
 
     @Value("${spring.app.jwtCookieName}")
-    private String jwtCookie;
+    private String jwtCookieName;
 
     @Override
     public String getJwt(HttpServletRequest request) {
-        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
+        Cookie cookie = WebUtils.getCookie(request, jwtCookieName);
         if (cookie != null) {
             return cookie.getValue();
         } else {
@@ -41,12 +41,12 @@ public class JwtUtils implements IJwtService {
     @Override
     public ResponseCookie generateJwtCookie(@NonNull MyUserDetails userPrincipal) {
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());
-        return ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
+        return ResponseCookie.from(jwtCookieName, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
     }
 
     @Override
     public ResponseCookie getCleanJwtCookie() {
-        return ResponseCookie.from(jwtCookie, "").path("/api").build();
+        return ResponseCookie.from(jwtCookieName, "").path("/api").build();
     }
 
     @Override

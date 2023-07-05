@@ -15,3 +15,6 @@ spring:
 
 gui:
   uri: http://localhost:4200, http://localhost:4201
+
+logging:
+  rootCategory: INFO, consoleAppender, fileAppender
