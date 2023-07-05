@@ -40,7 +40,10 @@ public class AuthController {
 
     @PostMapping("signup")
     public ResponseEntity<?> registerParent(@Valid @RequestBody SignupRequest signUpRequest) {
-        return this.authService.registerParent(signUpRequest);
+        var res = this.authService.registerParent(signUpRequest);
+
+        if("true".equals(res.get("Created"))) return ResponseEntity.ok().body(res);
+        else return ResponseEntity.badRequest().body(res);
     }
 
     @RequestMapping("token")

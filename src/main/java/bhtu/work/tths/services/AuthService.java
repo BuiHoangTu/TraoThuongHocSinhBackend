@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -64,19 +65,15 @@ public class AuthService {
                 .body(new LoginResponse(userDetails.getUsername(), accesses));
     }
 
-    public ResponseEntity<?> registerParent(SignupRequest signUpRequest) {
+    public Map<String, String> registerParent(SignupRequest signUpRequest) {
         if (this.userRepo.existsByUsername(signUpRequest.username())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body("Error: Username is already taken!");
+            return Map.of("Error", "Username is already taken!");
         }
 
         // with parent, AccessRegion is household number, 1 family should only have 1
         // account
         if (this.userRepo.existsByAccessRegion(signUpRequest.householdNumber())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body("Error: This household already have an account!");
+            return Map.of("Error", "This household already have an account!");
         }
 
         // Create new user's account
@@ -91,7 +88,7 @@ public class AuthService {
         user.setAccesses(userAccesses);
         userRepo.insert(user);
 
-        return authenticateUser(new LoginRequest(user.getUsername(), user.getPassword()));
+        return Map.of("Created", "true");
     }
 
 }
