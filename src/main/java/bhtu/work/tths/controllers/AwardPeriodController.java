@@ -1,7 +1,5 @@
 package bhtu.work.tths.controllers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,10 +20,9 @@ import java.util.Collections;
 @RequestMapping("api/award-period")
 @CrossOrigin(originPatterns = "*", maxAge = 3600)
 public class AwardPeriodController {
-    private static final Logger logger = LoggerFactory.getLogger(AwardPeriodController.class);
-
     private final AwardPeriodService awardPeriodService;
 
+    
     @Autowired
     public AwardPeriodController(AwardPeriodService awardPeriodService) {
         this.awardPeriodService = awardPeriodService;
@@ -37,10 +34,8 @@ public class AwardPeriodController {
         return ResponseEntity.ok().body(this.awardPeriodService.getAwardPeriod(dateString));
     }
 
-
     @PutMapping("update")
     public ResponseEntity<?> updateAwardLevel(@Valid @RequestBody AwardPeriod awardPeriod) {
-        logger.info("Trying to update AwardLevel");
         this.awardPeriodService.updateAwardLevel(awardPeriod);
         return ResponseEntity.ok().body(Collections.singletonMap("isUpdated", true));
     }

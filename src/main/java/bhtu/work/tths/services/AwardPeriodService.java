@@ -40,7 +40,8 @@ public class AwardPeriodService {
     }
 
     public AwardPeriod updateAwardLevel(AwardPeriod awardPeriod) {
-        return this.awardPeriodRepo.save(awardPeriod);
+        if (awardPeriod.getDateOfApply() == null) awardPeriod.setDateOfApply(LocalDate.now());
+        return this.awardPeriodRepo.insert(awardPeriod);
     }
 
 }
