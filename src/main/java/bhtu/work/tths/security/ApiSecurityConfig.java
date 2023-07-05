@@ -21,7 +21,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -86,8 +85,7 @@ public class ApiSecurityConfig {
         }); // allow all diff ports access
         
         http.csrf((httpSecurityCsrfConfigurer) -> {
-            httpSecurityCsrfConfigurer.ignoringRequestMatchers(openUrls);
-            httpSecurityCsrfConfigurer.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+            httpSecurityCsrfConfigurer.disable();
         });
         
         http.exceptionHandling((x) -> x.authenticationEntryPoint(unauthorizedHandler));

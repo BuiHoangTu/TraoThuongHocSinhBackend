@@ -19,8 +19,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,8 +30,8 @@ public class AuthService {
     private final UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
     private final IJwtService jwtService;
-    private final CsrfTokenRepository csrfRepo = CookieCsrfTokenRepository.withHttpOnlyFalse();
-
+    
+    
     @Autowired
     public AuthService(AuthenticationManager authenticationManager, UserRepo userRepo, PasswordEncoder passwordEncoder,
             IJwtService jwtService) {
@@ -43,6 +41,7 @@ public class AuthService {
         this.jwtService = jwtService;
     }
 
+    
     public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
         // get an authentication
         Authentication authentication = authenticationManager.authenticate(
