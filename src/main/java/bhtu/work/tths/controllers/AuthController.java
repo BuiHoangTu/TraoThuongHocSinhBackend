@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class AuthController {
     public ResponseEntity<?> registerParent(@Valid @RequestBody SignupRequest signUpRequest) {
         var res = this.authService.registerParent(signUpRequest);
 
-        if("true".equals(res.get("Created"))) return ResponseEntity.ok().body(res);
+        if("true".equals(res.get("Created"))) return ResponseEntity.status(HttpStatus.CREATED).body(res);
         else return ResponseEntity.badRequest().body(res);
     }
 
